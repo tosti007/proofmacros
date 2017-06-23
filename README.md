@@ -23,4 +23,5 @@ The delimiter between the hint and expression is defined in the `proofdelimiter`
 However if you want to change it you can by using `\renewcommand{\proofdelimiter}{your delimiter}`
 
 Derived from http://www.cs.uu.nl/docs/vakken/pc/1617/supplements/pncproofmacros.sty by dr. S.W.B. Prasetya
+
 By Brian Janssen
