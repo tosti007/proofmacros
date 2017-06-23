@@ -1,0 +1,33 @@
+\documentclass[fleqn]{article}
+
+\usepackage{a4}
+\usepackage{latexsym}
+\usepackage{proofmacros}
+
+\title{An example showing the use of proofmacros ...}
+\author{W.P.}
+
+\begin{document}\maketitle
+
+\begin{proof}{main}
+\assume{a[n]=0}
+\assume{(\forall i: 0\leq i<n: 0<a[j])}
+\assume{0\leq j \leq n}
+\goal{0\leq a[j]}
+\step{integer arithmetics}{0\leq j \leq n \ \ = \ \ 0\leq j < n \ \vee \ (j=n)}
+\step{rewrite{A2} with 1}{0\leq j < n \ \vee \ (j=n)}
+\step{see the subproof below}{0\leq j < n \Rightarrow 0\leq a[j]}
+
+  \begin{subproof}
+	\assume{0\leq j < n}
+	\goal{0\leq a[j]}
+	\step{$\forall$-Elimination on top.A2 using A1}{0<a[j]}
+	\step{arithmetics}{0<a[j] \Rightarrow 0\leq a[j]}
+	\step{Modus-ponens on 1,2}{0\leq a[j]}
+  \end{subproof}
+
+\step{follows from A1, prove this yourself}{(j=n) \Rightarrow 0\leq a[j]}
+\step{Case Split on 2,3,4}{0\leq a[j]}
+\end{proof}
+
+\end{document}

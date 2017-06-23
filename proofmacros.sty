@@ -1,0 +1,95 @@
+% By Brian Janssen, https://github.com/tosti007/proofmacros
+% Derived from http://www.cs.uu.nl/docs/vakken/pc/1617/supplements/pncproofmacros.sty by dr. S.W.B. Prasetya
+
+% Unfortunately another package is needed for proper list indentation and vertical spacing
+\usepackage[shortlabels]{enumitem}
+\makeatletter
+
+\newcommand{\@proofenumerate}[2]{
+  \begin{enumerate}[label=#1,nosep,leftmargin=#2]
+}
+
+\newcommand{\@beginproof}[5]{
+  \begin{flushleft}
+  \tt{\uppercase{#1}PROOF #2}
+  #3
+  \@proofenumerate{#4}{#5}
+}
+
+\newcommand{\@endproof}{
+  \end{enumerate}
+  \tt{END}\hrulefill
+  \end{flushleft}
+}
+
+\newcommand{\@expr}[1]{
+  \tt{$#1$}
+}
+
+\newcommand{\proofdelimiter}{
+  \\
+}
+
+\newcommand{\some}[1]{
+  {[}some\ #1{]}\
+}
+
+\newcommand{\assume}[1]{
+  \item \@expr{#1}
+}
+
+\newcommand{\goal}[1]{
+  \if@proof\else
+    \end{enumerate}
+    \@prooftrue
+    \@proofenumerate{
+      \bf{[G\arabic*:]}
+    }{29pt}
+  \fi
+  \assume{#1}
+}
+
+\newcommand{\@step}[2]{
+  \item \bf{\{#1\}}
+  \proofdelimiter
+  \@expr{#2}
+}
+
+\newcommand{\step}[2]{
+  \if@proof
+    \end{enumerate}
+    \@prooffalse
+    \tt{BEGIN}\hrulefill
+    \@proofenumerate{
+      \bf{\arabic*}
+    }{15pt}
+  \fi
+  \@step{#1}{#2}
+}
+
+\newcommand{\done}[2][1]{
+  \step{#2}{G#1}
+}
+
+\newenvironment{proof}[2][]{
+  \@beginproof{#1}{#2}{
+    \newif\if@proof
+    \@prooffalse
+  }{\bf{[A\arabic*:]}
+  }{29pt}
+  % Don't throw an error when no assumptions are given
+  \let\@noitemerr\relax
+}{\@endproof}
+
+\newenvironment{subproof}[1][]
+  {\begin{quote}\begin{proof}[sub]{#1}}
+  {\end{proof}\end{quote}}
+
+\newenvironment{eqproof}[2][]{
+  \@beginproof{EQUATIONAL }{#1}{\hrulefill}{=}{15pt}
+  % Redefine step to be without if statement
+  \renewcommand{\step}[2]{\@step{##1}{##2}}
+  \item[] \@expr{#2}
+}{\@endproof}
+
+\makeatother
