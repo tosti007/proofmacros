@@ -24,4 +24,4 @@ However if you want to change it you can by using `\renewcommand{\proofdelimiter
 
 Derived from http://www.cs.uu.nl/docs/vakken/pc/1617/supplements/pncproofmacros.sty by dr. S.W.B. Prasetya
 
-By Brian Janssen
+By Brian Janssen, https://github.com/tosti007/proofmacros/
